@@ -108,6 +108,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	class UStaticMeshComponent* WeaponStaticMesh;
 
+	UPROPERTY(EditAnywhere)
+	class UStaticMeshComponent* MagazineStaticMesh;
+
 private:
 	UPROPERTY(EditAnywhere)
 	UAnimMontage* AttackMontage;

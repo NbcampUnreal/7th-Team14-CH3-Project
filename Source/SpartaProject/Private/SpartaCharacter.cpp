@@ -115,7 +115,7 @@ void ASpartaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void ASpartaCharacter::PlayerMeshInitialization()
 {
     ConstructorHelpers::FObjectFinder<USkeletalMesh>
-        PlayerSkeletalMesh(TEXT(""));
+        PlayerSkeletalMesh(TEXT("/Script/Engine.SkeletalMesh'/Game/Resources/Characters/Meshes/SKM_Manny.SKM_Manny'"));
     if (PlayerSkeletalMesh.Succeeded())
     {
         GetMesh()->SetSkeletalMesh(PlayerSkeletalMesh.Object);
@@ -126,7 +126,9 @@ void ASpartaCharacter::PlayerMeshInitialization()
 void ASpartaCharacter::WeaponMeshInitialization()
 {
     WeaponStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("gun"));
-    WeaponStaticMesh->SetupAttachment(RootComponent);
+
+    // 처음부터 Mesh의 소켓에 부착하도록 설정
+    WeaponStaticMesh->SetupAttachment(GetMesh(), TEXT("Weapon_Socket"));
 
     static ConstructorHelpers::FObjectFinder<UStaticMesh> weapon(TEXT("/Script/Engine.StaticMesh'/Game/FP_AKS74U_Animation/AKS74U/Meshes/AK74U.AK74U'"));
 
@@ -135,7 +137,17 @@ void ASpartaCharacter::WeaponMeshInitialization()
         WeaponStaticMesh->SetStaticMesh(weapon.Object);
     }
 
-    WeaponStaticMesh->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("Weapon_Socket"));
+    // 예시: WeaponStaticMesh(총기)에 부속품(조준경 등)을 붙이는 경우
+    MagazineStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Magazine"));
+
+    // 캐릭터의 Mesh가 아니라 'WeaponStaticMesh'를 부모로 지정해야 합니다.
+    MagazineStaticMesh->SetupAttachment(WeaponStaticMesh, TEXT("Magazine_Socket"));
+
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> mag(TEXT("/Script/Engine.StaticMesh'/Game/FP_AKS74U_Animation/AKS74U/Meshes/SM_AKS74U_Magazine.SM_AKS74U_Magazine'"));
+    if (mag.Succeeded())
+    {
+        MagazineStaticMesh->SetStaticMesh(mag.Object);
+    }
 }
 
 void ASpartaCharacter::CameraInitialization()

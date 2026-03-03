@@ -1,4 +1,4 @@
-#include "SpawnVolume.h"
+ï»¿#include "SpawnVolume.h"
 #include "Components/BoxComponent.h"
 #include "Engine/World.h"
 
@@ -43,28 +43,28 @@ FItemSpawnRow* ASpawnVolume::GetRandomItem() const
 {
     if (!ItemDataTable) return nullptr;
 
-    // 1) ¸ðµç Row(Çà) °¡Á®¿À±â
+    // 1) ëª¨ë“  Row(í–‰) ê°€ì ¸ì˜¤ê¸°
     TArray<FItemSpawnRow*> AllRows;
     static const FString ContextString(TEXT("ItemSpawnContext"));
     ItemDataTable->GetAllRows(ContextString, AllRows);
 
     if (AllRows.IsEmpty()) return nullptr;
 
-    // 2) ÀüÃ¼ È®·ü ÇÕ ±¸ÇÏ±â
-    float TotalChance = 0.0f; // ÃÊ±âÈ­
-    for (const FItemSpawnRow* Row : AllRows) // AllRows ¹è¿­ÀÇ °¢ Row¸¦ ¼øÈ¸
+    // 2) ì „ì²´ í™•ë¥  í•© êµ¬í•˜ê¸°
+    float TotalChance = 0.0f; // ì´ˆê¸°í™”
+    for (const FItemSpawnRow* Row : AllRows) // AllRows ë°°ì—´ì˜ ê° Rowë¥¼ ìˆœíšŒ
     {
-        if (Row) // Row°¡ À¯È¿ÇÑÁö È®ÀÎ
+        if (Row) // Rowê°€ ìœ íš¨í•œì§€ í™•ì¸
         {
-            TotalChance += Row->SpawnChance; // SpawnChance °ªÀ» TotalChance¿¡ ´õÇÏ±â
+            TotalChance += Row->SpawnChance; // SpawnChance ê°’ì„ TotalChanceì— ë”í•˜ê¸°
         }
     }
 
-    // 3) 0 ~ TotalChance »çÀÌ ·£´ý °ª
+    // 3) 0 ~ TotalChance ì‚¬ì´ ëžœë¤ ê°’
     const float RandValue = FMath::FRandRange(0.0f, TotalChance);
     float AccumulateChance = 0.0f;
 
-    // 4) ´©Àû È®·ü·Î ¾ÆÀÌÅÛ ¼±ÅÃ
+    // 4) ëˆ„ì  í™•ë¥ ë¡œ ì•„ì´í…œ ì„ íƒ
     for (FItemSpawnRow* Row : AllRows)
     {
         AccumulateChance += Row->SpawnChance;

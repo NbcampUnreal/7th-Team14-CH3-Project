@@ -1,4 +1,4 @@
-﻿#include "SpartaGameInstance.h"
+#include "SpartaGameInstance.h"
 
 USpartaGameInstance::USpartaGameInstance()
 {

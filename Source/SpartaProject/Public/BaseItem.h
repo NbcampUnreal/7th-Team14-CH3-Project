@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -18,13 +18,13 @@ public:
 protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
     FName ItemType;
-    // ë£¨íŠ¸ ì»´í¬ë„ŒíŠ¸ (ì”¬)
+    // ·çÆ® ÄÄÆ÷³ÍÆ® (¾À)
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item|Component")
     USceneComponent* Scene;
-    // ì¶©ëŒ ì»´í¬ë„ŒíŠ¸ (í”Œë ˆì´ì–´ ì§„ì… ë²”ìœ„ ê°ì§€ìš©)
+    // Ãæµ¹ ÄÄÆ÷³ÍÆ® (ÇÃ·¹ÀÌ¾î ÁøÀÔ ¹üÀ§ °¨Áö¿ë)
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item|Component")
     USphereComponent* Collision;
-    // ì•„ì´í…œ ì‹œê° í‘œí˜„ìš© ìŠ¤íƒœí‹± ë©”ì‹œ
+    // ¾ÆÀÌÅÛ ½Ã°¢ Ç¥Çö¿ë ½ºÅÂÆ½ ¸Ş½Ã
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item|Component")
     UStaticMeshComponent* StaticMesh;
 

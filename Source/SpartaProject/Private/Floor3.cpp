@@ -1,4 +1,4 @@
-ï»¿// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Floor3.h"
@@ -57,12 +57,12 @@ void AFloor3::Tick(float DeltaTime)
 		AddActorLocalRotation(FRotator(0.0f, RotationSpeed * DeltaTime, 0.0f));
 	}
 	const FVector Current = GetActorLocation();
-	const FVector MoveAxis = FVector::RightVector; // ì›”ë“œ Y(ì¢Œìš°)
+	const FVector MoveAxis = FVector::RightVector; // ¿ùµå Y(ÁÂ¿ì)
 
-	// Start ê¸°ì¤€ìœ¼ë¡œ ì¶• ë°©í–¥ìœ¼ë¡œ ì–¼ë§ˆë‚˜ ì´ë™í–ˆëŠ”ì§€(íŽ¸ë„ ê±°ë¦¬ ì¸¡ì •)
+	// Start ±âÁØÀ¸·Î Ãà ¹æÇâÀ¸·Î ¾ó¸¶³ª ÀÌµ¿Çß´ÂÁö(Æíµµ °Å¸® ÃøÁ¤)
 	const float MovedOnAxis = FVector::DotProduct(Current - StartLocation, MoveAxis);
 
-	// ëì— ë‹¿ìœ¼ë©´ ë°©í–¥ ë°˜ì „
+	// ³¡¿¡ ´êÀ¸¸é ¹æÇâ ¹ÝÀü
 	if (FMath::Abs(MovedOnAxis) >= MaxRange)
 	{
 		DirectionSign *= -1.f;

@@ -1,4 +1,4 @@
-ï»¿// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GhostItem.h"
@@ -22,52 +22,43 @@ void AGhostItem::BeginPlay()
 {
     Super::BeginPlay();
 
-    // ì‹œì‘í•  ë•Œ ì²´ë ¥ì„ ê½‰ ì±„ì›Œì¤ë‹ˆë‹¤.
+    // ½ÃÀÛÇÒ ¶§ Ã¼·ÂÀ» ²Ë Ã¤¿öÁİ´Ï´Ù.
     HP = MaxHP;
 }
 
-// ë°ë¯¸ì§€ë¥¼ ì…ì—ˆì„ ë•Œ ì‹¤í–‰ë˜ëŠ” ë¡œì§
+void AGhostItem::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    // 1. ÇÃ·¹ÀÌ¾îÀÎÁö È®ÀÎ
+    if (OtherActor && OtherActor->ActorHasTag("Player"))
+    {
+        // 2. Áï½Ã µ¥¹ÌÁö Àû¿ë
+        UGameplayStatics::ApplyDamage(
+            OtherActor,           // µ¥¹ÌÁö¸¦ ¹ŞÀ» ´ë»ó
+            10.0f,                // µ¥¹ÌÁö ¾ç
+            nullptr,      // µ¥¹ÌÁö¸¦ ÁØ °¡ÇØÀÚ(À¯·É)ÀÇ ÄÁÆ®·Ñ·¯
+            this,                 // µ¥¹ÌÁö¸¦ ÁØ ¿øÀÎ ¾×ÅÍ
+            UDamageType::StaticClass()
+        );
+    }
+}
+
+// µ¥¹ÌÁö¸¦ ÀÔ¾úÀ» ¶§ ½ÇÇàµÇ´Â ·ÎÁ÷
 float AGhostItem::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
 {
-    // ë¶€ëª¨(AActor)ì˜ TakeDamage ì‹¤í–‰
+    // ºÎ¸ğ(AActor)ÀÇ TakeDamage ½ÇÇà
     float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
-
-    // ë°ë¯¸ì§€ë§Œí¼ ì²´ë ¥ ê°ì†Œ
-    HP -= ActualDamage;
-
-    // ì²´ë ¥ì´ 0 ì´í•˜ê°€ ë˜ë©´ í­ë°œ
-    if (HP <= 0.0f)
-    {
-        // ì›í•œë‹¤ë©´ íƒ€ì´ë¨¸ë¥¼ ì·¨ì†Œí•˜ê³  ì¦‰ì‹œ í­ë°œí•˜ê²Œ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
-        GetWorld()->GetTimerManager().ClearTimer(ExplosionTimerHandle);
-        Explode();
-    }
 
     return ActualDamage;
 }
 
 void AGhostItem::ActivateItem(AActor* Activator)
 {
-    // 5ì´ˆ í›„ í­ë°œ ì‹¤í–‰
+    // 5ÃÊ ÈÄ Æø¹ß ½ÇÇà
     GetWorld()->GetTimerManager().SetTimer(ExplosionTimerHandle, this, &AGhostItem::Explode, ExplosionDelay);
 }
 
 void AGhostItem::Explode()
 {
-    TArray<AActor*> OverlappingActors;
-    ExplosionCollision->GetOverlappingActors(OverlappingActors);
-
-    for (AActor* Actor : OverlappingActors)
-    {
-        if (Actor && Actor->ActorHasTag("Player"))
-        {
-            UGameplayStatics::ApplyDamage(
-                Actor, ExplosionDamage, nullptr, this,
-                UDamageType::StaticClass()
-            );
-        }
-    }
-
-    // ìœ ë ¹ ì œê±°
+    // À¯·É Á¦°Å
     DestroyItem();
 }

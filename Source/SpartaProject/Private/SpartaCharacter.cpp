@@ -7,6 +7,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Animation/AnimInstance.h"
 #include "EnhancedInputSubsystems.h"
+#include <SpartaGameState.h>
 
 
 ASpartaCharacter::ASpartaCharacter()
@@ -299,7 +300,8 @@ float ASpartaCharacter::GetHP() const
 void ASpartaCharacter::AddHP(float Amount)
 {
     HP = FMath::Clamp(HP + Amount, 0.0f, HPMax);
-    UE_LOG(LogTemp, Warning, TEXT("HP increased to: %f"), HP);
+
+    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("HP increased to: %f"), HP));
 }
 
 float ASpartaCharacter::TakeDamage(
@@ -310,8 +312,8 @@ float ASpartaCharacter::TakeDamage(
 {
     float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 
-    HP = FMath::Clamp(HP - DamageAmount, 0.0f, HPMax);
-    UE_LOG(LogTemp, Warning, TEXT("HP decreased to: %f"), HP);
+    HP -= ActualDamage;
+    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("HP decreased to: %f"), HP));
 
     if (HP <= 0.0f)
     {
@@ -323,5 +325,11 @@ float ASpartaCharacter::TakeDamage(
 
 void ASpartaCharacter::OnDeath()
 {
-    //게임 종료 로직
+    // 1. 현재 월드의 GameState를 가져옵니다.
+    // 2. 우리가 만든 ASpartaGameState 타입으로 형변환(Cast) 합니다.
+    if (ASpartaGameState* GameState = GetWorld()->GetGameState<ASpartaGameState>())
+    {
+        // 3. GameState에 선언된 OnGameOver를 호출합니다.
+        GameState->OnGameOver();
+    }
 }

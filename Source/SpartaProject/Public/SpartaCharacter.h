@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
@@ -45,7 +45,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	UCameraComponent* CameraComp;
 
-	// ì†ë„ì— ë”°ë¥¸ íŒ” ê¸¸ì´ ì¡°ì ˆì„ ìœ„í•œ ì„¤ì •ê°’
+	// ¼Óµµ¿¡ µû¸¥ ÆÈ ±æÀÌ Á¶ÀıÀ» À§ÇÑ ¼³Á¤°ª
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	float MinArmLength = 300.0f;
 
@@ -53,7 +53,7 @@ public:
 	float MaxArmLength = 800.0f;
 
 	UPROPERTY(EditAnywhere, Category = "Camera")
-	float ZoomInterpSpeed = 2.0f; // ë³€í™” ì†ë„
+	float ZoomInterpSpeed = 2.0f; // º¯È­ ¼Óµµ
 
 	UFUNCTION(BlueprintPure, Category = "Health")
 	float GetHP() const;

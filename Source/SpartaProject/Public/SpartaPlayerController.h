@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
@@ -33,7 +33,7 @@ public:
 	TSubclassOf<UUserWidget> HUDWidgetClass;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "HUD")
 	UUserWidget* HUDWidgetInstance;
-	// ë©”ë‰´ UI
+	// ¸Ş´º UI
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Menu")
 	TSubclassOf<UUserWidget> MainMenuWidgetClass;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Menu")
@@ -41,13 +41,13 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "HUD")
 	UUserWidget* GetHUDWidget() const;
-	// HUD í‘œì‹œ
+	// HUD Ç¥½Ã
 	UFUNCTION(BlueprintCallable, Category = "HUD")
 	void ShowGameHUD();
-	// ë©”ì¸ ë©”ë‰´ í‘œì‹œ
+	// ¸ŞÀÎ ¸Ş´º Ç¥½Ã
 	UFUNCTION(BlueprintCallable, Category = "Menu")
 	void ShowMainMenu(bool bIsRestart);
-	// ê²Œì„ ì‹œì‘
+	// °ÔÀÓ ½ÃÀÛ
 	UFUNCTION(BlueprintCallable, Category = "Menu")
 	void StartGame();
 

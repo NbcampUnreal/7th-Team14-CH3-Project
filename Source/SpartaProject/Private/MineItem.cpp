@@ -1,4 +1,4 @@
-ï»¿#include "MineItem.h"
+#include "MineItem.h"
 #include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -17,7 +17,7 @@ AMineItem::AMineItem()
 
 void AMineItem::ActivateItem(AActor* Activator)
 {
-    // 5ì´ˆ í›„ í­ë°œ ì‹¤í–‰
+    // 5ÃÊ ÈÄ Æø¹ß ½ÇÇà
     GetWorld()->GetTimerManager().SetTimer(ExplosionTimerHandle, this, &AMineItem::Explode, ExplosionDelay);
 }
 
@@ -37,6 +37,6 @@ void AMineItem::Explode()
         }
     }
 
-    // ìœ ë ¹ ì œê±°
+    // À¯·É Á¦°Å
     DestroyItem();
 }

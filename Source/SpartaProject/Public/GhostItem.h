@@ -18,10 +18,10 @@ public:
     AGhostItem();
 
     // 아이템의 최대 체력과 현재 체력
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mine|Health")
-    float MaxHP = 50.0f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ghost|Health")
+    float MaxHP = 100.0f;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mine|Health")
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ghost|Health")
     float HP;
 
 protected:

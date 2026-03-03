@@ -4,56 +4,38 @@
 
 #include "CoreMinimal.h"
 #include "BaseItem.h"
-#include "Components/SphereComponent.h"
-#include "Kismet/GameplayStatics.h"
 #include "GhostItem.generated.h"
 
+/**
+ * 
+ */
 UCLASS()
 class SPARTAPROJECT_API AGhostItem : public ABaseItem
 {
 	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AGhostItem();
 
-    virtual void Tick(float DeltaTime) override;
-    virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+public:
+    AGhostItem();
 
-    UFUNCTION(BlueprintPure, Category = "Health")
-    float GetHP() const;
+    // 아이템의 최대 체력과 현재 체력
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mine|Health")
+    float MaxHP = 50.0f;
 
-    UFUNCTION(BlueprintCallable, Category = "Health")
-    void AddHP(float Amount);
-
-    // 공격받아 죽었을 때 호출
-    void OnDeath();
-
-protected:
-    virtual void BeginPlay() override;
-
-    // --- AI 및 이동 관련 ---
-    UPROPERTY(EditAnywhere, Category = "Ghost AI")
-    float WanderRadius = 500.0f;
-    UPROPERTY(EditAnywhere, Category = "Ghost AI")
-    float MoveSpeed = 150.0f;
-    UPROPERTY(EditAnywhere, Category = "Ghost AI")
-    float WaitTime = 2.0f;
-
-    // --- 체력 관련 ---
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HP")
-    float HPMax = 100.0f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "HP")
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Mine|Health")
     float HP;
 
+protected:
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Item|Component")
+    USphereComponent* ExplosionCollision;
+
     // 폭발까지 걸리는 시간 (5초)
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mine")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ghost")
     float ExplosionDelay;
     // 폭발 범위
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mine")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ghost")
     float ExplosionRadius;
     // 폭발 데미지
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mine")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ghost")
     int ExplosionDamage;
 
     // 지뢰 발동 여부
@@ -63,12 +45,10 @@ protected:
 
     void Explode();
 
-private:
-    FVector OriginLocation;
-    FVector TargetLocation;
-    EGhostState CurrentState;
-    float StateTimer;
-    float FloatingTime;
+    // 시작할 때 HP를 MaxHP로 초기화하기 위해 필요
+    virtual void BeginPlay() override;
 
-    void GetNewRandomLocation();
+    // 데미지를 받을 때 호출되는 엔진 기본 함수 오버라이드
+    virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+	
 };

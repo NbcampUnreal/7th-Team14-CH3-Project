@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "BaseItem.h"
 #include "Item.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogSparta, Warning, All);

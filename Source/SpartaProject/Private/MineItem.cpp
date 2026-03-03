@@ -37,6 +37,6 @@ void AMineItem::Explode()
         }
     }
 
-    // 지뢰 제거
+    // 유령 제거
     DestroyItem();
 }

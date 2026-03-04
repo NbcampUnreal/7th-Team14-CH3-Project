@@ -60,19 +60,7 @@ UUserWidget* ASpartaPlayerController::GetHUDWidget() const
 // 메뉴 UI 표시
 void ASpartaPlayerController::ShowMainMenu(bool bIsRestart)
 {
-	// 클래스가 비어있는지 먼저 확인
-	if (!MainMenuWidgetClass)
-	{
-		UE_LOG(LogTemp, Error, TEXT("MainMenuWidgetClass가 할당되지 않았습니다!"));
-		return;
-	}
-
-	if (MainMenuWidgetInstance) {
-		UE_LOG(LogTemp, Warning, TEXT("MainMenu Widget Created Successfully!"));
-	}
-	else {
-		UE_LOG(LogTemp, Error, TEXT("Failed to Create MainMenu Widget! Check Class Assignment."));
-	}
+	
 
 	// HUD가 켜져 있다면 닫기
 	if (HUDWidgetInstance)
@@ -91,6 +79,7 @@ void ASpartaPlayerController::ShowMainMenu(bool bIsRestart)
 	// 메뉴 UI 생성
 	if (MainMenuWidgetClass)
 	{
+
 		MainMenuWidgetInstance = CreateWidget<UUserWidget>(this, MainMenuWidgetClass);
 		if (MainMenuWidgetInstance)
 		{
@@ -111,6 +100,20 @@ void ASpartaPlayerController::ShowMainMenu(bool bIsRestart)
 				ButtonText->SetText(FText::FromString(TEXT("Start")));
 			}
 		}
+	}
+
+	// 클래스가 비어있는지 먼저 확인
+	if (!MainMenuWidgetClass)
+	{
+		UE_LOG(LogTemp, Error, TEXT("MainMenuWidgetClass가 할당되지 않았습니다!"));
+		return;
+	}
+
+	if (MainMenuWidgetInstance) {
+		UE_LOG(LogTemp, Warning, TEXT("MainMenu Widget Created Successfully!"));
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Failed to Create MainMenu Widget! Check Class Assignment."));
 	}
 }
 

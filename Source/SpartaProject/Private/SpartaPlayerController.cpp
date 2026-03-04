@@ -19,9 +19,19 @@ ASpartaPlayerController::ASpartaPlayerController()
 {
 }
 
+void ASpartaPlayerController::OnWorldTickStart(UWorld* world, ELevelTick TickType, float DeltaSeconds) {
+	FWorldDelegates::OnWorldTickStart.RemoveAll(this);
+	FString CurrentMapName = UGameplayStatics::GetCurrentLevelName(GetWorld(), true);
+	if (CurrentMapName.Contains("MenuLevel")) {
+		ShowMainMenu(false);
+	}
+}
+
 void ASpartaPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	FWorldDelegates::OnWorldTickStart.AddUObject(this, &ASpartaPlayerController::OnWorldTickStart);
 
 	if (ULocalPlayer* LocalPlayer = GetLocalPlayer())
 	{

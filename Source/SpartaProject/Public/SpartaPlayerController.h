@@ -16,6 +16,8 @@ class SPARTAPROJECT_API ASpartaPlayerController : public APlayerController
 public:
 	ASpartaPlayerController();
 
+	void OnWorldTickStart(UWorld* World, ELevelTick TickType, float DeltaSeconds);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputMappingContext* InputMappingContext;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+Ôªø// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -20,7 +20,7 @@ protected:
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
-	class ACharacter* Owner; //ƒ≥∏Ø≈Õ ø¢≈Õ
+	class ACharacter* Owner; //Ï∫êÎ¶≠ÌÑ∞ ÏóëÌÑ∞
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Character")
 	class UCharacterMovementComponent* Movement;

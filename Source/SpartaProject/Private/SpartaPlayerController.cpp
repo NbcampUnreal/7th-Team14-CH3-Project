@@ -60,6 +60,12 @@ UUserWidget* ASpartaPlayerController::GetHUDWidget() const
 // 메뉴 UI 표시
 void ASpartaPlayerController::ShowMainMenu(bool bIsRestart)
 {
+	// 클래스가 비어있는지 먼저 확인
+	if (!MainMenuWidgetClass)
+	{
+		UE_LOG(LogTemp, Error, TEXT("MainMenuWidgetClass가 할당되지 않았습니다!"));
+		return;
+	}
 
 	if (MainMenuWidgetInstance) {
 		UE_LOG(LogTemp, Warning, TEXT("MainMenu Widget Created Successfully!"));

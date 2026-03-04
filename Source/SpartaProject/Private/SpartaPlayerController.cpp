@@ -36,10 +36,19 @@ void ASpartaPlayerController::BeginPlay()
 	}
 
 	// 게임 실행 시 메뉴 레벨에서 메뉴 UI 먼저 표시
-	FString CurrentMapName = GetWorld()->GetMapName();
+	FString CurrentMapName = UGameplayStatics::GetCurrentLevelName(GetWorld(), true);
+	
+	// 로그를 추가해서 실제 출력되는 이름을 꼭 확인해보세요!
+	UE_LOG(LogTemp, Warning, TEXT("Current Level Name: %s"), *CurrentMapName);
+
 	if (CurrentMapName.Contains("MenuLevel"))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("ShowMainMenu"));
 		ShowMainMenu(false);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Map name does not contain 'MenuLevel'!")); // 조건 실패 로그
 	}
 }
 
@@ -51,6 +60,14 @@ UUserWidget* ASpartaPlayerController::GetHUDWidget() const
 // 메뉴 UI 표시
 void ASpartaPlayerController::ShowMainMenu(bool bIsRestart)
 {
+
+	if (MainMenuWidgetInstance) {
+		UE_LOG(LogTemp, Warning, TEXT("MainMenu Widget Created Successfully!"));
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Failed to Create MainMenu Widget! Check Class Assignment."));
+	}
+
 	// HUD가 켜져 있다면 닫기
 	if (HUDWidgetInstance)
 	{
